@@ -19,8 +19,7 @@ src/
       slidingk/
         FenwickTreeTest.java
         SlidingKStatisticTest.java
-
-```text
+text```
 
 
 Корневые файлы
