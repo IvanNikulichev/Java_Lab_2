@@ -20,5 +20,5 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Build and run tests with Maven
+      - name: Build and test with Maven
         run: mvn -B test
