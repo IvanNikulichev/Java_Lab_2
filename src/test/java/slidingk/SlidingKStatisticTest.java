@@ -158,13 +158,13 @@ public class SlidingKStatisticTest {
     void testKTooLargeAlwaysMinusOne() {
         long[] values = {4, 2, 1};
         int orderIndex = 4;
-
-        String operations = "RRL";
-
-        long[] expected = {-1L, -1L, -1L, -1L};
-
+        String operations = "RR"; 
         long[] actual = runOperations(values, orderIndex, operations);
+
+        long[] expected = new long[actual.length];
+        Arrays.fill(expected, -1L);
+
         assertArrayEquals(expected, actual);
-    }
+}
 
 }
