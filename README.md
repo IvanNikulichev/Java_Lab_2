@@ -20,6 +20,7 @@ src/
         FenwickTreeTest.java
         SlidingKStatisticTest.java
 
+```text
 
 
 Корневые файлы
