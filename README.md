@@ -1,24 +1,26 @@
 Реализация дерева Фенвика с использованием. На основе этой структуры дополнительно реализовано решение известной задачи - поиска k-й порядковой статистики в скользящем окне.
 
-Структура проекта
+## Структура проекта
 
-
+```text
 pom.xml
 .github/
-    workflows/
-        java-ci.yml
+  workflows/
+    java-ci.yml
 src/
-    main/
-        java/
-            slidingk/
-                FenwickTree.java
-                SlidingKStatistic.java
-                Main.java
-    test/
-        java/
-            slidingk/
-                FenwickTreeTest.java
-                SlidingKStatisticTest.java
+  main/
+    java/
+      slidingk/
+        FenwickTree.java
+        SlidingKStatistic.java
+        Main.java
+  test/
+    java/
+      slidingk/
+        FenwickTreeTest.java
+        SlidingKStatisticTest.java
+
+
 
 Корневые файлы
 
