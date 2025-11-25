@@ -25,9 +25,7 @@ src/
 ## Корневые файлы
 
 pom.xml
-Конфигурация Maven-проекта: настройки компилятора (Java 17), подключение JUnit 5 для тестов.
-
-.github/workflows/java-ci.yml
+Конфигурация Maven-проекта: настройки компилятора (Java 17), подключение JUnit 5 для тестов. .github/workflows/java-ci.yml
 Конфигурация GitHub Actions. При каждом push / pull request:
 собирает проект
 запускает тесты (mvn test)
@@ -37,9 +35,10 @@ pom.xml
 
 ## Основные классы (src/main/java/slidingk)
 
-FenwickTree.java
-Реализация дерева Фенвика
-хранение данных только во внутреннем массиве tree
+FenwickTree.java.
+
+Реализация дерева Фенвика.
+хранение данных только во внутреннем массиве tree.
 методы build, update, prefixSum, rangeSum.
 дополнительно реализован метод поиска по порядку (используется для k-й статистики);
 предусмотрены проверки аргументов и выброс стандартных исключений (IllegalArgumentException, IndexOutOfBoundsException, IllegalStateException) в некорректных ситуациях.
