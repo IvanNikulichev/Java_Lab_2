@@ -20,8 +20,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Compile
-        run: javac Main.java FenwickTreeTest.java
-
-      - name: Run tests
-        run: java FenwickTreeTest
+      - name: Build and test with Maven
+        run: mvn -B test
+        
