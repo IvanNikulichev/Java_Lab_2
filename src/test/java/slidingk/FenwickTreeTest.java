@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class FenwickTreeTest {
+public class FenwickTreeTest {
 
     @Test
     void testPrefixAndRangeSumSimple() {
@@ -32,12 +32,10 @@ class FenwickTreeTest {
     @Test
     void testFindByOrderWithDuplicates() {
         FenwickTree tree = new FenwickTree(3);
-        // частоты: [2, 1, 3]
         tree.update(0, 2);
         tree.update(1, 1);
         tree.update(2, 3);
 
-        // порядок: индексы [0,0,1,2,2,2]
         assertEquals(0, tree.findByOrder(1));
         assertEquals(0, tree.findByOrder(2));
         assertEquals(1, tree.findByOrder(3));

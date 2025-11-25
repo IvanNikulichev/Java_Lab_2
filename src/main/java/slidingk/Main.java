@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 public class Main {
 
-    // Быстрый ввод
     private static class FastScanner {
         private final InputStream in;
         private final byte[] buffer = new byte[1 << 16];
@@ -78,143 +77,6 @@ public class Main {
         }
     }
 
-    // Дерево Фенвика: по заданию + поиск по порядку
-    static class FenwickTree {
-        private int size_;
-        private int[] tree_;
-
-        public FenwickTree() {
-            this(0);
-        }
-
-        public FenwickTree(int size) {
-            size_ = size;
-            tree_ = new int[size_ + 1];
-        }
-
-        // Построение по массиву
-        public void build(int[] arr) {
-            size_ = arr.length;
-            tree_ = new int[size_ + 1];
-            for (int i = 0; i < size_; ++i) {
-                internalAdd(i, arr[i]);
-            }
-        }
-
-        // Обновление: arr[index] += delta
-        public void update(int index, int delta) {
-            internalAdd(index, delta);
-        }
-
-        // Сумма на префиксе [0..index]
-        public int prefixSum(int index) {
-            if (index < 0) {
-                return 0;
-            }
-            if (size_ == 0) {
-                return 0;
-            }
-            if (index >= size_) {
-                index = size_ - 1;
-            }
-            int result = 0;
-            int position = index + 1;
-            while (position > 0) {
-                result += tree_[position];
-                position -= position & -position;
-            }
-            return result;
-        }
-
-        // Сумма на отрезке [left..right]
-        public int rangeSum(int left, int right) {
-            if (left > right) {
-                return 0;
-            }
-            if (size_ == 0) {
-                return 0;
-            }
-            if (right < 0) {
-                return 0;
-            }
-            if (left < 0) {
-                left = 0;
-            }
-            if (right >= size_) {
-                right = size_ - 1;
-            }
-            int sumRight = prefixSum(right);
-            int sumLeft = (left > 0) ? prefixSum(left - 1) : 0;
-            return sumRight - sumLeft;
-        }
-
-        // Поиск индекса по порядку (для k-й статистики)
-        public int findByOrder(int requiredOrder) {
-            int currentIndex = 0;
-            int bitMask = 1;
-            while ((bitMask << 1) <= size_) {
-                bitMask <<= 1;
-            }
-            int remainingOrder = requiredOrder;
-            for (int step = bitMask; step > 0; step >>= 1) {
-                int nextIndex = currentIndex + step;
-                if (nextIndex <= size_ && tree_[nextIndex] < remainingOrder) {
-                    remainingOrder -= tree_[nextIndex];
-                    currentIndex = nextIndex;
-                }
-            }
-            return currentIndex; // 0-based индекс сжатого значения
-        }
-
-        // Внутреннее добавление (используется build/update)
-        private void internalAdd(int positionIndex, int delta) {
-            int position = positionIndex + 1;
-            while (position <= size_) {
-                tree_[position] += delta;
-                position += position & -position;
-            }
-        }
-    }
-
-    // Скользящая k-статистика
-    static class SlidingKStatistic {
-        private final int order_index_;
-        private int window_size_;
-        private final int[] compressed_values_;
-        private final long[] sorted_values_;
-        private final FenwickTree fenwick_;
-
-        public SlidingKStatistic(int orderIndex,
-                                 int[] compressedValues,
-                                 long[] sortedValues) {
-            order_index_ = orderIndex;
-            window_size_ = 0;
-            compressed_values_ = compressedValues;
-            sorted_values_ = sortedValues;
-            fenwick_ = new FenwickTree(sortedValues.length);
-        }
-
-        public void Right(int array_position) {
-            int value_index = compressed_values_[array_position];
-            fenwick_.update(value_index, 1);
-            ++window_size_;
-        }
-
-        public void Left(int array_position) {
-            int value_index = compressed_values_[array_position];
-            fenwick_.update(value_index, -1);
-            --window_size_;
-        }
-
-        public long GetKth() {
-            if (window_size_ < order_index_) {
-                return -1L;
-            }
-            int value_index = fenwick_.findByOrder(order_index_);
-            return sorted_values_[value_index];
-        }
-    }
-
     public static void main(String[] args) throws Exception {
         FastScanner scanner = new FastScanner(System.in);
         StringBuilder output = new StringBuilder();
@@ -264,7 +126,7 @@ public class Main {
         int right_index = 0;
 
         SlidingKStatistic window =
-                new SlidingKStatistic(order_index, compressed_values, sorted_values);
+            new SlidingKStatistic(order_index, compressed_values, sorted_values);
         if (array_size > 0) {
             window.Right(0);
         }
